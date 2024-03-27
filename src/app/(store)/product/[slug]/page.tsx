@@ -1,6 +1,7 @@
+import Image from "next/image";
+import { Metadata, ResolvingMetadata } from "next";
 import { api } from "@/data/api";
 import { Product } from "@/data/types/product";
-import Image from "next/image";
 
 interface ProductProps {
   params: {
@@ -18,6 +19,21 @@ async function getProduct(slug: string): Promise<Product> {
   const products = await response.json();
 
   return products;
+}
+
+export async function generateMetadata(
+  { params }: ProductProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const product = await getProduct(params.slug);
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: product.title,
+    openGraph: {
+      images: ["/moletom-never-stop-learning.png", ...previousImages],
+    },
+  };
 }
 
 export default async function ProductPage({ params }: ProductProps) {

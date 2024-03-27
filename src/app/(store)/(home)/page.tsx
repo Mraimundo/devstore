@@ -25,7 +25,7 @@ export default async function Home() {
   return (
     <section className="grid max-h-[860px] grid-cols-9 grid-rows-6 gap-6">
       <Link
-        href={`/products/${highlightedProduc.slug}`}
+        href={`/product/${highlightedProduc.slug}`}
         className="relative group col-span-6 row-span-6 rounded bg-zinc-900 overflow-hidden flex justify-center items-baseline"
       >
         <Image
@@ -53,7 +53,7 @@ export default async function Home() {
         return (
           <Link
             key={product.id}
-            href={`/products/${product.slug}`}
+            href={`/product/${product.slug}`}
             className="relative group col-span-3 row-span-3 rounded bg-zinc-900 overflow-hidden flex justify-center items-baseline"
           >
             <Image

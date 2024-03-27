@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import { api } from "@/data/api";
 import { Product } from "@/data/types/product";
 
@@ -21,18 +21,13 @@ async function getProduct(slug: string): Promise<Product> {
   return products;
 }
 
-export async function generateMetadata(
-  { params }: ProductProps,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ProductProps): Promise<Metadata> {
   const product = await getProduct(params.slug);
-  const previousImages = (await parent).openGraph?.images || [];
 
   return {
     title: product.title,
-    openGraph: {
-      images: ["/moletom-never-stop-learning.png", ...previousImages],
-    },
   };
 }
 
